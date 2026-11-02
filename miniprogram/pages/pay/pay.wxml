@@ -1,0 +1,90 @@
+<view class="page page-with-bar">
+  <loading wx:if="{{loading}}" skeleton="true" rows="2" text="正在准备收银台…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="😵"
+    text="{{error}}"
+    tip="点下面重新加载"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:elif="{{order}}">
+    <!-- 支付结果头部 -->
+    <view class="pay-head {{paid ? 'pay-head-ok' : ''}}">
+      <text class="pay-head-icon">{{paid ? '✅' : '💳'}}</text>
+      <text class="pay-head-title">{{paid ? '支付成功' : '等待支付'}}</text>
+      <text class="pay-head-sub" wx:if="{{paid}}">课程已开通，可在「我的-我的课程」查看</text>
+      <text class="pay-head-sub" wx:elif="{{expireText}}">请在 {{expireText}} 内完成支付</text>
+      <text class="pay-head-sub" wx:else>订单号 {{order.orderNo}}</text>
+    </view>
+
+    <!-- 金额 -->
+    <view class="card pay-amount">
+      <text class="pay-amount-label">应付金额</text>
+      <view class="row" style="align-items: baseline; justify-content: center;">
+        <text class="price-unit">¥</text>
+        <text class="pay-amount-value">{{order.totalText}}</text>
+      </view>
+      <text class="pay-amount-tip">{{mock ? '演示环境：模拟支付，不会产生真实扣款' : '微信支付'}}</text>
+    </view>
+
+    <!-- 订单内容 -->
+    <view class="card">
+      <text class="card-title">订单内容</text>
+      <view class="pay-item" wx:for="{{orderItems}}" wx:key="id">
+        <text class="pay-item-name ellipsis flex-1">{{item.title}}</text>
+        <text class="pay-item-price">¥{{item.priceText}}</text>
+        <text class="pay-item-qty">×{{item.quantity}}</text>
+      </view>
+      <view class="pay-meta">
+        <text class="pay-meta-label">订单号</text>
+        <text class="pay-meta-value">{{order.orderNo}}</text>
+      </view>
+      <view class="pay-meta">
+        <text class="pay-meta-label">下单时间</text>
+        <text class="pay-meta-value">{{order.createdAtText}}</text>
+      </view>
+      <view class="pay-meta" wx:if="{{order.remark}}">
+        <text class="pay-meta-label">备注</text>
+        <text class="pay-meta-value">{{order.remark}}</text>
+      </view>
+    </view>
+
+    <!-- 模拟支付面板 -->
+    <view class="card mock-panel" wx:if="{{mock && !paid}}">
+      <text class="mock-tip">{{mockTip}}</text>
+      <view class="mock-actions">
+        <view class="btn btn-primary btn-block {{paying ? 'btn-disabled' : ''}}" bindtap="onMockPaid">
+          {{paying ? '确认中…' : '我已支付'}}
+        </view>
+        <view class="btn btn-plain btn-block mt-16" bindtap="onPay">重新发起支付</view>
+      </view>
+      <text class="mock-note" wx:if="{{waiting}}">正在向服务端确认支付结果…（{{outTradeNo}}）</text>
+    </view>
+
+    <!-- 已支付 -->
+    <view class="card" wx:if="{{paid}}">
+      <view class="btn btn-primary btn-block" bindtap="goEntitlements">查看我的课程</view>
+      <view class="btn btn-plain btn-block mt-16" bindtap="goOrders">查看订单详情</view>
+    </view>
+
+    <view class="pay-help" wx:if="{{!paid}}">
+      <text class="pay-help-item" bindtap="goService">支付遇到问题？联系客服</text>
+      <text class="pay-help-sep">·</text>
+      <text class="pay-help-item" bindtap="onCancelOrder" wx:if="{{canPay}}">取消订单</text>
+    </view>
+  </block>
+
+  <!-- 底部支付栏 -->
+  <view class="bottom-bar" wx:if="{{order && !paid && !mock}}">
+    <view class="pay-bar-amount">
+      <text class="pay-bar-label">实付</text>
+      <text class="pay-bar-value">¥{{order.totalText}}</text>
+    </view>
+    <view class="btn btn-primary bar-pay {{paying || waiting ? 'btn-disabled' : ''}}" bindtap="onPay">
+      {{paying ? '发起中…' : (waiting ? '确认中…' : '微信支付')}}
+    </view>
+  </view>
+</view>

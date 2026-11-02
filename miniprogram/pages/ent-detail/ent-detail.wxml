@@ -1,0 +1,91 @@
+<view class="page page-with-bar">
+  <loading wx:if="{{loading}}" skeleton="true" rows="5" text="正在加载课程详情…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="📖"
+    text="{{error}}"
+    tip="点下面重新加载"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:else>
+    <view class="ed-hero">
+      <image class="ed-cover" wx:if="{{cover}}" src="{{cover}}" mode="aspectFill" />
+      <view class="ed-cover ed-cover-ph" wx:else>🧘</view>
+      <view class="ed-hero-body flex-1">
+        <text class="ed-title ellipsis-2">{{title}}</text>
+        <view class="row ed-tags">
+          <text class="tag tag-plain">{{typeText}}</text>
+          <text class="tag tag-accent">{{statusText}}</text>
+        </view>
+        <text class="ed-expire">有效期：{{expiresAtText}}</text>
+      </view>
+    </view>
+
+    <!-- 核销码 -->
+    <view class="card ed-code" bindtap="onCopyCode">
+      <text class="ed-code-label">上课核销码</text>
+      <text class="ed-code-value">{{verifyCode || '—'}}</text>
+      <text class="ed-code-tip" wx:if="{{verifyTip}}">{{verifyTip}}</text>
+      <text class="ed-code-tip" wx:elif="{{verifyCode}}">点击复制，到店出示给老师</text>
+      <text class="ed-code-tip" wx:else>线上课程无需核销，直接按课表上课</text>
+    </view>
+
+    <!-- 上课信息 -->
+    <view class="card" wx:if="{{teacher || schedule || durationText}}">
+      <text class="card-title">上课信息</text>
+      <view class="ed-kv" wx:if="{{teacher}}">
+        <text class="ed-k">授课老师</text>
+        <text class="ed-v">{{teacher}}</text>
+      </view>
+      <view class="ed-kv" wx:if="{{schedule}}">
+        <text class="ed-k">时间安排</text>
+        <text class="ed-v">{{schedule}}</text>
+      </view>
+      <view class="ed-kv" wx:if="{{durationText}}">
+        <text class="ed-k">单节时长</text>
+        <text class="ed-v">{{durationText}}</text>
+      </view>
+    </view>
+
+    <!-- 信息 -->
+    <view class="card">
+      <text class="card-title">开通信息</text>
+      <view class="ed-kv">
+        <text class="ed-k">开通时间</text>
+        <text class="ed-v">{{grantedAtText || '—'}}</text>
+      </view>
+      <view class="ed-kv">
+        <text class="ed-k">有效期至</text>
+        <text class="ed-v">{{expiresAtText}}</text>
+      </view>
+      <view class="ed-kv">
+        <text class="ed-k">课程状态</text>
+        <text class="ed-v">{{statusText}}</text>
+      </view>
+      <view class="ed-kv" wx:if="{{orderNo}}">
+        <text class="ed-k">关联订单</text>
+        <text class="ed-v ed-link" catchtap="goOrder">{{orderNo}} ›</text>
+      </view>
+    </view>
+
+    <!-- 上课须知 -->
+    <view class="card" wx:if="{{notice || noticeHtml || notices.length > 0}}">
+      <text class="card-title">上课须知</text>
+      <text class="ed-notice" wx:if="{{notice}}">{{notice}}</text>
+      <view class="ed-notice-list" wx:if="{{notices.length > 0}}">
+        <text class="ed-notice-item" wx:for="{{notices}}" wx:key="key">· {{item.text}}</text>
+      </view>
+      <rich-text class="ed-rich" wx:if="{{noticeHtml}}" nodes="{{noticeHtml}}"></rich-text>
+    </view>
+
+    <!-- 底部操作 -->
+    <view class="bottom-bar">
+      <view class="btn btn-ghost btn-sm" bindtap="goService">联系客服</view>
+      <view class="btn btn-ghost btn-sm" bindtap="goProduct">课程介绍</view>
+      <view class="btn btn-primary flex-1" bindtap="onCopyCode">复制核销码</view>
+    </view>
+  </block>
+</view>

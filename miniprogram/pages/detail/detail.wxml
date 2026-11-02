@@ -1,0 +1,138 @@
+<view class="page page-with-bar">
+  <loading wx:if="{{loading}}" skeleton="true" rows="2" text="正在加载课程…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="😵"
+    text="{{error}}"
+    tip="点下面重新加载"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:elif="{{product}}">
+    <!-- 封面 -->
+    <view class="cover-wrap">
+      <image class="cover" src="{{product.cover}}" mode="aspectFill" lazy-load="true" />
+      <view class="cover-badge" wx:if="{{product.typeText}}">{{product.typeText}}</view>
+    </view>
+
+    <!-- 标题区 -->
+    <view class="card detail-head">
+      <view class="row row-between">
+        <text class="d-title flex-1">{{product.title}}</text>
+        <text class="tag tag-plain" wx:if="{{product.sales}}">已售 {{product.sales}}</text>
+      </view>
+      <text class="d-sub" wx:if="{{product.subtitle}}">{{product.subtitle}}</text>
+
+      <view class="row gap-8 mt-16" wx:if="{{product.goalTags.length > 0}}">
+        <text class="tag" wx:for="{{product.goalTags}}" wx:key="*this">{{item}}</text>
+      </view>
+
+      <view class="row row-between mt-16">
+        <view class="row">
+          <text class="price-unit">¥</text>
+          <text class="price">{{priceText}}</text>
+          <text class="price-origin" wx:if="{{product.originalPriceText}}">¥{{product.originalPriceText}}</text>
+        </view>
+        <text class="tag tag-accent" wx:if="{{product.discountText}}">{{product.discountText}}</text>
+      </view>
+    </view>
+
+    <!-- 课程信息 -->
+    <view class="card">
+      <text class="card-title">课程信息</text>
+      <view class="info-row">
+        <text class="info-label">授课老师</text>
+        <text class="info-value">{{product.teacher || '—'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">时长</text>
+        <text class="info-value">{{product.durationText || '—'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">上课安排</text>
+        <text class="info-value">{{product.schedule || '报名后由老师安排'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">库存</text>
+        <text class="info-value">{{product.stock}} 份</text>
+      </view>
+    </view>
+
+    <!-- SKU -->
+    <view class="card" wx:if="{{skus.length > 0}}">
+      <text class="card-title">选择规格</text>
+      <view class="sku-list">
+        <view
+          class="sku {{skuId === item.id ? 'sku-active' : ''}} {{item.stock <= 0 ? 'sku-off' : ''}}"
+          wx:for="{{skus}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onPickSku"
+        >
+          <text class="sku-name">{{item.name}}</text>
+          <text class="sku-price">¥{{item.priceText}}</text>
+        </view>
+      </view>
+
+      <view class="qty-row">
+        <text class="info-label">数量</text>
+        <view class="stepper">
+          <text class="stepper-btn {{quantity <= 1 ? 'stepper-off' : ''}}" bindtap="onMinus">−</text>
+          <text class="stepper-num">{{quantity}}</text>
+          <text class="stepper-btn" bindtap="onPlus">＋</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 详情 -->
+    <view class="card" wx:if="{{product.detailHtml}}">
+      <text class="card-title">课程详情</text>
+      <rich-text class="rich" nodes="{{product.detailHtml}}"></rich-text>
+    </view>
+
+    <!-- FAQ -->
+    <view class="card" wx:if="{{faq.length > 0}}">
+      <text class="card-title">常见问题</text>
+      <view class="faq-item" wx:for="{{faq}}" wx:key="key" data-index="{{index}}" bindtap="onToggleFaq">
+        <view class="row row-between">
+          <text class="faq-q flex-1">Q：{{item.q}}</text>
+          <text class="faq-arrow">{{item.open ? '−' : '+'}}</text>
+        </view>
+        <text class="faq-a" wx:if="{{item.open}}">{{item.a}}</text>
+      </view>
+    </view>
+
+    <!-- 相关推荐 -->
+    <view class="related" wx:if="{{related.length > 0}}">
+      <text class="card-title">你可能还想练</text>
+      <product-card wx:for="{{related}}" wx:key="id" item="{{item}}" />
+    </view>
+  </block>
+
+  <empty
+    wx:else
+    icon="🧘"
+    text="课程不存在或已下架"
+    tip="回到列表看看其他课程"
+    show-retry="true"
+    retry-text="去列表"
+    bind:retry="onRetry"
+  />
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar" wx:if="{{product && !loading}}">
+    <view class="bar-service" hover-class="bar-service-hover" bindtap="goService">
+      <text class="bar-service-icon">💬</text>
+      <text class="bar-service-text">客服</text>
+    </view>
+    <view class="bar-price">
+      <text class="bar-price-label">合计</text>
+      <text class="bar-price-text">¥{{totalText}}</text>
+    </view>
+    <view class="btn btn-primary bar-buy {{soldOut || iosBlocked ? 'btn-disabled' : ''}}" bindtap="onBuy">
+      {{iosBlocked ? 'iOS 请联系客服报名' : (soldOut ? '已售罄' : '立即购买')}}
+    </view>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+<view class="empty {{compact ? 'empty-compact' : ''}}">
+  <text class="empty-icon">{{icon}}</text>
+  <text class="empty-text">{{text}}</text>
+  <text class="empty-tip" wx:if="{{tip}}">{{tip}}</text>
+  <view class="empty-btn" wx:if="{{showRetry}}" bindtap="onRetry" hover-class="empty-btn-hover">{{retryText}}</view>
+</view>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>瑜伽卖课 · 后台管理</title>
+<link rel="stylesheet" href="/admin.css?v=20261102" />
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="side">
+    <div class="brand">
+      <span class="brand__logo">🧘</span>
+      <span class="brand__text">
+        <span class="brand__name">瑜伽卖课</span>
+        <span class="brand__sub">运营后台</span>
+      </span>
+    </div>
+    <nav class="nav" id="nav">
+      <a class="nav__item" href="#/dashboard" data-nav="dashboard"><span class="nav__ico">📊</span>看板</a>
+      <a class="nav__item" href="#/products" data-nav="products"><span class="nav__ico">🛍</span>商品</a>
+      <a class="nav__item" href="#/orders" data-nav="orders"><span class="nav__ico">🧾</span>订单</a>
+      <a class="nav__item" href="#/refunds" data-nav="refunds"><span class="nav__ico">↩️</span>退款审核</a>
+      <a class="nav__item" href="#/withdrawals" data-nav="withdrawals"><span class="nav__ico">🏦</span>提现审核</a>
+      <a class="nav__item" href="#/dist" data-nav="dist"><span class="nav__ico">💰</span>分销</a>
+      <a class="nav__item" href="#/service" data-nav="service"><span class="nav__ico">🎧</span>客服会话</a>
+      <a class="nav__item" href="#/users" data-nav="users"><span class="nav__ico">👥</span>用户</a>
+      <a class="nav__item" href="#/settings" data-nav="settings"><span class="nav__ico">⚙️</span>业务参数</a>
+      <a class="nav__item" href="#/audit" data-nav="audit"><span class="nav__ico">📜</span>审计日志</a>
+    </nav>
+    <div class="side__foot">
+      <a class="side__link" href="/" target="_blank" rel="noopener">打开 H5 商城 ↗</a>
+      <span class="side__ver">v1 · 本地演示环境</span>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar__left">
+        <button class="btn btn--ghost btn--sm only-mobile" type="button" id="menu-btn">☰</button>
+        <div class="topbar__title" id="top-title">看板</div>
+      </div>
+      <div class="topbar__actions">
+        <span class="badge" id="top-admin">未登录</span>
+        <button class="btn btn--ghost btn--sm" type="button" id="logout">退出</button>
+      </div>
+    </header>
+    <main id="view" class="view"></main>
+  </div>
+</div>
+<div id="toast-wrap" class="toast-wrap"></div>
+<div id="modal-root"></div>
+<script type="module" src="/admin.js?v=20261102"></script>
+</body>
+</html>

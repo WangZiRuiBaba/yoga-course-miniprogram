@@ -1,0 +1,149 @@
+.hero {
+  padding: 32rpx 24rpx 24rpx;
+  background: linear-gradient(160deg, #7b6cf6 0%, #6c5ce7 62%, #5d4ee0 100%);
+  border-bottom-left-radius: 32rpx;
+  border-bottom-right-radius: 32rpx;
+}
+
+.hero-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.hero-title {
+  display: block;
+  color: #ffffff;
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.hero-sub {
+  display: block;
+  margin-top: 8rpx;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 24rpx;
+}
+
+.hero-ai {
+  flex: none;
+  padding: 12rpx 26rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1rpx solid rgba(255, 255, 255, 0.35);
+}
+
+.hero-ai-hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.hero-ai-text {
+  color: #ffffff;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.search {
+  margin-top: 26rpx;
+  height: 78rpx;
+  border-radius: 39rpx;
+  background: rgba(255, 255, 255, 0.94);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 26rpx;
+}
+
+.search-hover {
+  background: #f0eeff;
+}
+
+.search-icon {
+  font-size: 26rpx;
+  margin-right: 12rpx;
+}
+
+.search-text {
+  color: #a3a3b8;
+  font-size: 26rpx;
+}
+
+.chip-count {
+  font-size: 20rpx;
+  opacity: 0.75;
+}
+
+.banner {
+  height: 260rpx;
+  margin: 20rpx 24rpx 0;
+}
+
+.banner-card {
+  height: 100%;
+  border-radius: 16rpx;
+  padding: 34rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 6rpx 24rpx rgba(108, 92, 231, 0.12);
+}
+
+.bn-a {
+  background: linear-gradient(135deg, #ffd3b6 0%, #ffaaa5 100%);
+}
+
+.bn-b {
+  background: linear-gradient(135deg, #c3bef0 0%, #8ec5fc 100%);
+}
+
+.bn-c {
+  background: linear-gradient(135deg, #b5ead7 0%, #a8e6cf 100%);
+}
+
+.banner-title {
+  color: #ffffff;
+  font-size: 38rpx;
+  font-weight: 700;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.12);
+}
+
+.banner-sub {
+  margin-top: 12rpx;
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 24rpx;
+}
+
+.section {
+  margin: 28rpx 24rpx 0;
+}
+
+.section-head {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-bottom: 18rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1f1f2c;
+}
+
+.section-sub {
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  color: #8a8aa3;
+}
+
+.section-more {
+  font-size: 24rpx;
+  color: #8a8aa3;
+}
+
+.foot-tip {
+  margin: 40rpx 24rpx 30rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #b8b8c8;
+}

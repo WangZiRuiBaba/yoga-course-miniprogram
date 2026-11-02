@@ -1,0 +1,144 @@
+.cf-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.cf-cover {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 12rpx;
+  flex: none;
+  background: #eeebff;
+}
+
+.cf-info {
+  margin-left: 20rpx;
+}
+
+.cf-title {
+  font-size: 29rpx;
+  font-weight: 600;
+  color: #1f1f2c;
+  line-height: 1.4;
+}
+
+.cf-sku {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 23rpx;
+  color: #8a8aa3;
+}
+
+.cf-price {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #ff7a59;
+}
+
+.cf-label {
+  font-size: 26rpx;
+  color: #1f1f2c;
+}
+
+.cf-tip {
+  font-size: 22rpx;
+  color: #a3a3b8;
+}
+
+.cf-value {
+  font-size: 26rpx;
+  color: #55556b;
+  text-align: right;
+  flex: 1;
+}
+
+.cf-textarea {
+  width: 100%;
+  min-height: 130rpx;
+  margin-top: 16rpx;
+  padding: 18rpx;
+  box-sizing: border-box;
+  border-radius: 12rpx;
+  background: #fafaff;
+  font-size: 26rpx;
+  color: #1f1f2c;
+  line-height: 1.6;
+}
+
+.cf-ph {
+  color: #b8b8c8;
+}
+
+.cf-line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f5f5fa;
+}
+
+.cf-tip-line {
+  margin-top: 16rpx;
+  font-size: 22rpx;
+  color: #a3a3b8;
+}
+
+.cf-agreement {
+  margin: 26rpx 24rpx 30rpx;
+  text-align: center;
+  font-size: 21rpx;
+  color: #b8b8c8;
+}
+
+.stepper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.stepper-btn {
+  width: 52rpx;
+  height: 52rpx;
+  line-height: 52rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  background: #f2f2f8;
+  color: #1f1f2c;
+  font-size: 28rpx;
+}
+
+.stepper-off {
+  color: #c8c8d8;
+}
+
+.stepper-num {
+  min-width: 64rpx;
+  text-align: center;
+  font-size: 27rpx;
+}
+
+.cf-total {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.cf-total-label {
+  font-size: 22rpx;
+  color: #8a8aa3;
+  margin-right: 8rpx;
+}
+
+.cf-total-price {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #ff7a59;
+}
+
+.cf-submit {
+  width: 260rpx;
+  flex: none;
+}

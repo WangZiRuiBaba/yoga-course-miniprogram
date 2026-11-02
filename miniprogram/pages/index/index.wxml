@@ -1,0 +1,80 @@
+<view class="page">
+  <!-- 顶部问候 + 搜索 -->
+  <view class="hero">
+    <view class="hero-row">
+      <view class="flex-1">
+        <text class="hero-title">{{greeting}}</text>
+        <text class="hero-sub" wx:if="{{inviteCode}}">邀请码 {{inviteCode}}</text>
+        <text class="hero-sub" wx:else>选课 · 上课 · 分销，一站式搞定</text>
+      </view>
+      <view class="hero-ai" hover-class="hero-ai-hover" bindtap="goAi">
+        <text class="hero-ai-text">AI 选课</text>
+      </view>
+    </view>
+    <view class="search" hover-class="search-hover" bindtap="onTapSearch">
+      <text class="search-icon">🔍</text>
+      <text class="search-text">搜索课程 / 老师 / 目标</text>
+    </view>
+  </view>
+
+  <view class="notice" wx:if="{{notice}}">{{notice}}</view>
+
+  <!-- 目标筛选 -->
+  <scroll-view class="chips" scroll-x="true" enhanced="true" show-scrollbar="false" wx:if="{{goals.length > 0}}">
+    <view
+      class="chip"
+      wx:for="{{goals}}"
+      wx:key="key"
+      data-goal="{{item.key}}"
+      bindtap="onTapGoal"
+    >{{item.icon}} {{item.label}}<text wx:if="{{item.count}}" class="chip-count"> {{item.count}}</text></view>
+  </scroll-view>
+
+  <!-- 加载 / 错误 -->
+  <loading wx:if="{{loading}}" skeleton="true" rows="3" text="正在为你准备课程…" />
+  <empty
+    wx:elif="{{error}}"
+    icon="😵"
+    text="{{error}}"
+    tip="检查一下网络，或者稍后再试"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+  <block wx:else>
+    <!-- 轮播 -->
+    <swiper class="banner" indicator-dots="true" autoplay="true" interval="4200" duration="420" wx:if="{{banners.length > 0}}">
+      <swiper-item wx:for="{{banners}}" wx:key="key" data-id="{{item.productId}}" bindtap="onTapBanner">
+        <view class="banner-card {{item.skin}}">
+          <text class="banner-title">{{item.title}}</text>
+          <text class="banner-sub">{{item.subtitle}}</text>
+        </view>
+      </swiper-item>
+    </swiper>
+
+    <!-- 推荐分区 -->
+    <view class="section" wx:for="{{sections}}" wx:key="key">
+      <view class="section-head">
+        <view class="flex-1">
+          <text class="section-title">{{item.title}}</text>
+          <text class="section-sub" wx:if="{{item.subtitle}}">{{item.subtitle}}</text>
+        </view>
+        <text class="section-more" data-goal="" bindtap="onTapMore">全部 ›</text>
+      </view>
+      <block wx:if="{{item.products.length > 0}}">
+        <product-card wx:for="{{item.products}}" wx:for-item="p" wx:key="id" item="{{p}}" />
+      </block>
+      <empty wx:else compact="true" icon="🌱" text="这个分区还在准备中" />
+    </view>
+
+    <empty
+      wx:if="{{sections.length === 0}}"
+      icon="🧘"
+      text="暂时没有上架课程"
+      tip="换个目标试试，或找 AI 顾问聊聊"
+      show-retry="true"
+      bind:retry="onRetry"
+    />
+  </block>
+
+  <view class="foot-tip">课程内容由瑜伽馆提供 · 支持 7 天无理由退款</view>
+</view>

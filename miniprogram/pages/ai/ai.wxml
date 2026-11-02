@@ -1,0 +1,130 @@
+<view class="page ai-page">
+  <loading wx:if="{{loading}}" text="正在连接 AI 顾问…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="🤖"
+    text="{{error}}"
+    tip="点下面重新连接"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:else>
+    <scroll-view
+      class="ai-scroll"
+      scroll-y="true"
+      scroll-into-view="{{scrollTo}}"
+      scroll-with-animation="true"
+    >
+      <!-- 空态引导 -->
+      <view class="ai-intro" wx:if="{{messages.length === 0}}">
+        <text class="ai-intro-icon">🧘‍♀️</text>
+        <text class="ai-intro-title">我是你的瑜伽选课顾问</text>
+        <text class="ai-intro-sub">说说你的目标（减脂 / 塑形 / 舒缓 / 孕产 / 入门），我帮你挑课、下单、查订单、办退款。</text>
+      </view>
+
+      <!-- 消息列表 -->
+      <view
+        class="ai-msg {{item.mine ? 'ai-msg-mine' : ''}}"
+        wx:for="{{messages}}"
+        wx:key="key"
+        id="msg-{{index}}"
+      >
+        <view class="ai-avatar" wx:if="{{!item.mine}}">🤖</view>
+        <view class="ai-bubble-wrap">
+          <view class="bubble {{item.mine ? 'bubble-right' : 'bubble-left'}}">
+            <text class="ai-text" wx:if="{{item.content}}">{{item.content}}</text>
+
+            <!-- 卡片 -->
+            <view
+              class="ai-card ai-card-{{c.type}}"
+              wx:for="{{item.cards}}"
+              wx:for-item="c"
+              wx:for-index="ci"
+              data-type="{{c.type}}"
+              data-pid="{{c.productId}}"
+              data-no="{{c.orderNo}}"
+              data-ent="{{c.verifyCode}}"
+              bindtap="onTapCard"
+            >
+              <image class="ai-card-cover" wx:if="{{c.cover}}" src="{{c.cover}}" mode="aspectFill" lazy-load="true" />
+              <view class="ai-card-body flex-1">
+                <view class="row row-between">
+                  <text class="ai-card-type">{{c.typeText || '推荐'}}</text>
+                  <text class="ai-card-status" wx:if="{{c.statusText}}">{{c.statusText}}</text>
+                </view>
+                <text class="ai-card-title ellipsis-2" wx:if="{{c.title}}">{{c.title}}</text>
+                <text class="ai-card-sub ellipsis-2" wx:if="{{c.subtitle}}">{{c.subtitle}}</text>
+                <view class="row row-between mt-8">
+                  <text class="ai-card-price" wx:if="{{c.priceText}}">¥{{c.priceText}}</text>
+                  <text class="ai-card-price" wx:elif="{{c.totalText}}">¥{{c.totalText}}</text>
+                  <text class="ai-card-price" wx:elif="{{c.amountText}}">¥{{c.amountText}}</text>
+                  <text class="ai-card-verify" wx:if="{{c.verifyCode}}">核销码 {{c.verifyCode}}</text>
+                  <text class="ai-card-more">查看 ›</text>
+                </view>
+              </view>
+            </view>
+
+            <!-- 动作按钮 -->
+            <view class="ai-actions" wx:if="{{item.actions.length > 0}}">
+              <text
+                class="btn btn-sm btn-ghost ai-action"
+                wx:for="{{item.actions}}"
+                wx:for-item="a"
+                wx:for-index="ai"
+                data-action="{{a.action}}"
+                data-payload="{{a.payload}}"
+                catchtap="onTapAction"
+              >{{a.label}}</text>
+            </view>
+          </view>
+          <text class="ai-time" wx:if="{{item.timeText}}">{{item.timeText}}</text>
+        </view>
+      </view>
+
+      <!-- 正在输入 -->
+      <view class="ai-typing" wx:if="{{sending}}">
+        <view class="ai-avatar">🤖</view>
+        <view class="bubble bubble-left ai-typing-bubble">
+          <view class="dot"></view>
+          <view class="dot"></view>
+          <view class="dot"></view>
+        </view>
+      </view>
+
+      <view class="ai-bottom-space"></view>
+    </scroll-view>
+
+    <!-- 推荐问题 -->
+    <scroll-view class="ai-suggest" scroll-x="true" show-scrollbar="false">
+      <text
+        class="chip"
+        wx:for="{{suggestions}}"
+        wx:key="*this"
+        data-text="{{item}}"
+        bindtap="onPickSuggestion"
+      >{{item}}</text>
+    </scroll-view>
+
+    <!-- 输入栏 -->
+    <view class="ai-bar">
+      <input
+        class="ai-input"
+        value="{{input}}"
+        placeholder="说说你的目标或问题…"
+        placeholder-class="ai-ph"
+        confirm-type="send"
+        confirm-hold="true"
+        bindinput="onInput"
+        bindconfirm="onSend"
+        disabled="{{sending}}"
+      />
+      <view class="ai-send {{sending || !input ? 'ai-send-off' : ''}}" bindtap="onSend">发送</view>
+    </view>
+  </block>
+
+  <view class="ai-toolbar" wx:if="{{!loading && !error}}">
+    <text class="ai-toolbar-btn" bindtap="onNewSession">＋ 新会话</text>
+  </view>
+</view>

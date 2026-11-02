@@ -1,0 +1,87 @@
+<view class="page">
+  <!-- 搜索 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        value="{{keywordInput}}"
+        placeholder="搜课程、老师、目标"
+        placeholder-class="search-ph"
+        confirm-type="search"
+        focus="{{focus}}"
+        bindinput="onSearchInput"
+        bindconfirm="onSearchConfirm"
+      />
+      <text class="search-clear" wx:if="{{keywordInput}}" catchtap="onClearKeyword">✕</text>
+    </view>
+  </view>
+
+  <!-- 目标筛选 -->
+  <scroll-view class="chips" scroll-x="true" show-scrollbar="false" wx:if="{{goals.length > 0}}">
+    <view
+      class="chip {{goal === item.key ? 'chip-active' : ''}}"
+      wx:for="{{goals}}"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="onTapGoal"
+    >{{item.label}}</view>
+  </scroll-view>
+
+  <!-- 类型 + 排序 -->
+  <view class="filters">
+    <view class="filter-row">
+      <text
+        class="filter-item {{type === item.key ? 'filter-active' : ''}}"
+        wx:for="{{types}}"
+        wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="onTapType"
+      >{{item.label}}</text>
+    </view>
+    <view class="filter-row">
+      <text
+        class="filter-item {{sort === item.key ? 'filter-active' : ''}}"
+        wx:for="{{sorts}}"
+        wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="onTapSort"
+      >{{item.label}}</text>
+    </view>
+  </view>
+
+  <view class="result-tip" wx:if="{{!loading && !error}}">共 {{total}} 门课程</view>
+
+  <loading wx:if="{{loading}}" skeleton="true" rows="3" text="正在加载课程…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="😵"
+    text="{{error}}"
+    tip="网络抖了一下，点下面重试"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:else>
+    <view class="list">
+      <product-card wx:for="{{list}}" wx:key="id" item="{{item}}" />
+    </view>
+
+    <empty
+      wx:if="{{list.length === 0}}"
+      icon="🔍"
+      text="{{emptyText}}"
+      tip="换个目标标签，或清空关键词再试"
+      show-retry="true"
+      retry-text="重置筛选"
+      bind:retry="onRetry"
+    />
+
+    <view class="load-more" wx:if="{{list.length > 0}}">
+      <text wx:if="{{loadingMore}}">加载中…</text>
+      <text wx:elif="{{hasMore}}">上拉加载更多</text>
+      <text wx:else>— 已经到底啦 —</text>
+    </view>
+  </block>
+</view>

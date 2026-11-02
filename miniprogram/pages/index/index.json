@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "product-card": "/components/product-card/index",
+    "empty": "/components/empty/index",
+    "loading": "/components/loading/index"
+  },
+  "navigationBarTitleText": "瑜伽课堂",
+  "enablePullDownRefresh": true
+}

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "empty": "/components/empty/index",
+    "loading": "/components/loading/index"
+  },
+  "navigationBarTitleText": "我的",
+  "enablePullDownRefresh": true
+}

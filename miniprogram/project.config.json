@@ -1,0 +1,33 @@
+{
+  "description": "瑜伽卖课小程序 · 微信原生前端（纯静态、零第三方依赖、CommonJS）",
+  "appid": "touristappid",
+  "projectname": "yoga-course-miniprogram",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "./",
+  "libVersion": "2.32.3",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": false,
+    "postcss": true,
+    "minified": false,
+    "nodeModules": false,
+    "autoAudits": false,
+    "checkInvalidKey": true,
+    "coverView": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "showShadowRootInWxmlPanel": true,
+    "ignoreUploadUnusedFiles": true
+  },
+  "condition": {
+    "miniprogram": {
+      "list": [
+        { "name": "首页", "pathName": "pages/index/index", "query": "" },
+        { "name": "商品列表", "pathName": "pages/list/list", "query": "" },
+        { "name": "AI 商城", "pathName": "pages/ai/ai", "query": "" },
+        { "name": "我的", "pathName": "pages/mine/mine", "query": "" }
+      ]
+    }
+  }
+}

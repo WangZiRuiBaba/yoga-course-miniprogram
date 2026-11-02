@@ -1,0 +1,77 @@
+<view class="page page-with-bar">
+  <loading wx:if="{{loading}}" skeleton="true" rows="2" text="正在核对订单…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="😵"
+    text="{{error}}"
+    tip="点下面重新加载"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:elif="{{product}}">
+    <view class="card">
+      <view class="cf-row">
+        <image class="cf-cover" src="{{product.cover}}" mode="aspectFill" lazy-load="true" />
+        <view class="cf-info flex-1">
+          <text class="cf-title ellipsis-2">{{product.title}}</text>
+          <text class="cf-sku" wx:if="{{sku}}">{{sku.name}}</text>
+          <text class="cf-sku" wx:else>{{product.typeText || '标准课程'}}</text>
+          <view class="row row-between mt-16">
+            <text class="cf-price">¥{{priceText}}</text>
+            <view class="stepper">
+              <text class="stepper-btn {{quantity <= 1 ? 'stepper-off' : ''}}" bindtap="onMinus">−</text>
+              <text class="stepper-num">{{quantity}}</text>
+              <text class="stepper-btn" bindtap="onPlus">＋</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="row row-between">
+        <text class="cf-label">备注</text>
+        <text class="cf-tip">选填，最多 200 字</text>
+      </view>
+      <textarea
+        class="cf-textarea"
+        value="{{remark}}"
+        placeholder="想约的时间、身体情况、特殊需求…"
+        placeholder-class="cf-ph"
+        maxlength="200"
+        auto-height="true"
+        bindinput="onRemarkInput"
+      />
+    </view>
+
+    <view class="card">
+      <view class="cf-line">
+        <text class="cf-label">商品小计</text>
+        <text class="cf-value">¥{{totalText}}</text>
+      </view>
+      <view class="cf-line">
+        <text class="cf-label">优惠</text>
+        <text class="cf-value">¥0.00</text>
+      </view>
+      <view class="cf-line">
+        <text class="cf-label">支付方式</text>
+        <text class="cf-value">微信支付（演示环境为模拟支付）</text>
+      </view>
+      <view class="cf-tip-line">{{expireTip}}</view>
+    </view>
+
+    <view class="cf-agreement">下单即表示同意《课程服务与退款说明》</view>
+  </block>
+
+  <view class="bottom-bar" wx:if="{{product && !loading}}">
+    <view class="cf-total">
+      <text class="cf-total-label">应付</text>
+      <text class="cf-total-price">¥{{totalText}}</text>
+    </view>
+    <view class="btn btn-primary cf-submit {{submitting ? 'btn-disabled' : ''}}" bindtap="onSubmit">
+      {{submitting ? '提交中…' : '提交订单'}}
+    </view>
+  </view>
+</view>

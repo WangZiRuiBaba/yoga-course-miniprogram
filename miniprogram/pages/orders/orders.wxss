@@ -1,0 +1,96 @@
+.tabs {
+  display: flex;
+  flex-direction: row;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1rpx solid #f2f2f8;
+}
+
+.tab {
+  flex: 1;
+  padding: 22rpx 0 14rpx;
+  text-align: center;
+  position: relative;
+}
+
+.tab-text {
+  font-size: 26rpx;
+  color: #75758f;
+}
+
+.tab-active .tab-text {
+  color: #6c5ce7;
+  font-weight: 700;
+}
+
+.tab-line {
+  width: 40rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background: #6c5ce7;
+  margin: 8rpx auto 0;
+}
+
+.order-card {
+  margin: 20rpx 24rpx 0;
+  padding: 24rpx;
+  background: #ffffff;
+  border-radius: 16rpx;
+  box-shadow: 0 6rpx 24rpx rgba(108, 92, 231, 0.06);
+}
+
+.order-no {
+  font-size: 22rpx;
+  color: #a3a3b8;
+}
+
+.order-status {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #6c5ce7;
+}
+
+.order-titles {
+  display: block;
+  margin-top: 14rpx;
+  font-size: 28rpx;
+  color: #1f1f2c;
+  line-height: 1.5;
+}
+
+.order-time {
+  font-size: 21rpx;
+  color: #b8b8c8;
+}
+
+.order-count {
+  font-size: 21rpx;
+  color: #a3a3b8;
+  margin-right: 12rpx;
+}
+
+.order-total {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #ff7a59;
+}
+
+.order-actions {
+  margin-top: 20rpx;
+  padding-top: 18rpx;
+  border-top: 1rpx solid #f5f5fa;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 14rpx;
+}
+
+.load-more {
+  padding: 30rpx 0 50rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #b8b8c8;
+}

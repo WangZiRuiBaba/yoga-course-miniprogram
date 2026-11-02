@@ -1,0 +1,75 @@
+<view class="page">
+  <loading wx:if="{{loading}}" skeleton="true" rows="4" text="正在加载我的课程…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="📚"
+    text="{{error}}"
+    tip="点下面重新加载"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:else>
+    <view class="en-head">
+      <text class="en-head-num">{{total}}</text>
+      <text class="en-head-label">门课程已开通 · 有效 {{activeCount}} 门</text>
+    </view>
+
+    <view class="chips en-filters">
+      <text
+        class="chip {{filter === f.key ? 'chip-active' : ''}}"
+        wx:for="{{filters}}"
+        wx:for-item="f"
+        wx:key="key"
+        data-key="{{f.key}}"
+        bindtap="onTapFilter"
+      >{{f.label}}</text>
+    </view>
+
+    <view wx:if="{{list.length === 0}}">
+      <empty
+        icon="🧘"
+        text="还没有已开通的课程"
+        tip="购买课程后会在这里看到上课权限与核销码"
+      />
+      <view class="en-empty-btn">
+        <view class="btn btn-primary btn-sm" bindtap="goList">去逛逛课程</view>
+      </view>
+    </view>
+
+    <view
+      class="card en-item"
+      wx:for="{{list}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="onTapItem"
+    >
+      <image class="en-cover" wx:if="{{item.cover}}" src="{{item.cover}}" mode="aspectFill" lazy-load="true" />
+      <view class="en-cover en-cover-ph" wx:else>🧘</view>
+
+      <view class="col flex-1 en-body">
+        <view class="row row-between">
+          <text class="en-title ellipsis-2">{{item.title}}</text>
+        </view>
+        <view class="row en-tags">
+          <text class="tag tag-plain">{{item.typeText}}</text>
+          <text class="tag tag-accent {{item.status === 'expired' ? 'en-tag-off' : ''}}">{{item.statusText}}</text>
+        </view>
+        <text class="en-expire">{{item.expiresAtText}}</text>
+        <view class="row row-between en-foot">
+          <view class="en-code-wrap" data-code="{{item.verifyCode}}" catchtap="onCopyCode">
+            <text class="en-code-label">核销码</text>
+            <text class="en-code">{{item.verifyCode || '—'}}</text>
+            <text class="en-code-copy" wx:if="{{item.verifyCode}}">复制</text>
+          </view>
+          <text class="en-more">查看 ›</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="en-foot-tip" wx:if="{{list.length > 0}}">
+      <text>到店课程请出示核销码，线上课程在小程序内观看</text>
+    </view>
+  </block>
+</view>

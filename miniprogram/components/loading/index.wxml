@@ -1,0 +1,14 @@
+<view class="ld" wx:if="{{skeleton}}">
+  <view class="ld-skeleton" wx:for="{{rows}}" wx:key="*this">
+    <view class="ld-block"></view>
+    <view class="ld-lines">
+      <view class="ld-line ld-line-lg"></view>
+      <view class="ld-line"></view>
+      <view class="ld-line ld-line-sm"></view>
+    </view>
+  </view>
+</view>
+<view class="ld" wx:else>
+  <view class="ld-spinner"></view>
+  <text class="ld-text">{{text}}</text>
+</view>

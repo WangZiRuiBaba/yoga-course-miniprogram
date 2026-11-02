@@ -1,0 +1,214 @@
+.rf-result {
+  margin: 24rpx;
+  padding: 40rpx 24rpx;
+  background: #ffffff;
+  border-radius: 16rpx;
+  text-align: center;
+  box-shadow: 0 6rpx 24rpx rgba(108, 92, 231, 0.06);
+}
+
+.rf-result-icon {
+  font-size: 56rpx;
+}
+
+.rf-result-title {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1f1f2c;
+}
+
+.rf-result-amount {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  color: #ff7a59;
+  font-weight: 600;
+}
+
+.rf-result-msg {
+  display: block;
+  margin-top: 14rpx;
+  font-size: 24rpx;
+  color: #8a8aa3;
+  line-height: 1.6;
+}
+
+.rf-result-btn {
+  flex: 1;
+}
+
+.rf-head {
+  text-align: center;
+}
+
+.rf-head-label {
+  display: block;
+  font-size: 23rpx;
+  color: #8a8aa3;
+}
+
+.rf-head-value {
+  font-size: 52rpx;
+  font-weight: 700;
+  color: #1f1f2c;
+}
+
+.rf-head-tip {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 21rpx;
+  color: #b8b8c8;
+}
+
+.rf-kv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12rpx 0;
+}
+
+.rf-k {
+  font-size: 24rpx;
+  color: #8a8aa3;
+}
+
+.rf-v {
+  font-size: 24rpx;
+  color: #55556b;
+  max-width: 440rpx;
+  text-align: right;
+}
+
+.rf-switch {
+  width: 84rpx;
+  height: 46rpx;
+  border-radius: 23rpx;
+  background: #e8e8f2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4rpx;
+  box-sizing: border-box;
+}
+
+.rf-switch-on {
+  background: #6c5ce7;
+  justify-content: flex-end;
+}
+
+.rf-switch-dot {
+  width: 38rpx;
+  height: 38rpx;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.rf-amount-label {
+  font-size: 26rpx;
+  color: #1f1f2c;
+}
+
+.rf-amount-full {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #ff7a59;
+}
+
+.rf-input {
+  width: 220rpx;
+  text-align: right;
+  font-size: 30rpx;
+  color: #1f1f2c;
+  border-bottom: 1rpx solid #e8e8f2;
+  padding: 6rpx 0;
+}
+
+.rf-ph {
+  color: #b8b8c8;
+}
+
+.rf-note {
+  display: block;
+  margin-top: 14rpx;
+  font-size: 21rpx;
+  color: #a3a3b8;
+  line-height: 1.5;
+}
+
+.rf-reasons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 14rpx;
+  margin-top: 16rpx;
+}
+
+.rf-reasons .chip {
+  font-size: 24rpx;
+}
+
+.rf-textarea {
+  width: 100%;
+  min-height: 120rpx;
+  margin-top: 18rpx;
+  padding: 18rpx;
+  box-sizing: border-box;
+  border-radius: 12rpx;
+  background: #fafaff;
+  font-size: 25rpx;
+  color: #1f1f2c;
+  line-height: 1.6;
+}
+
+.rf-record {
+  padding: 18rpx 0;
+  border-bottom: 1rpx solid #f5f5fa;
+}
+
+.rf-record-no {
+  font-size: 23rpx;
+  color: #75758f;
+}
+
+.rf-record-status {
+  font-size: 23rpx;
+  color: #6c5ce7;
+  font-weight: 600;
+}
+
+.rf-record-time {
+  font-size: 21rpx;
+  color: #b8b8c8;
+}
+
+.rf-record-amount {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #ff7a59;
+}
+
+.rf-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.rf-bar-label {
+  font-size: 22rpx;
+  color: #8a8aa3;
+  margin-right: 8rpx;
+}
+
+.rf-bar-value {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #ff7a59;
+}
+
+.rf-submit {
+  width: 300rpx;
+  flex: none;
+}

@@ -1,0 +1,276 @@
+.ai-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+  padding-bottom: 0;
+}
+
+.ai-scroll {
+  flex: 1;
+  height: 0;
+  padding: 20rpx 24rpx 0;
+  box-sizing: border-box;
+}
+
+.ai-intro {
+  padding: 60rpx 30rpx 40rpx;
+  text-align: center;
+}
+
+.ai-intro-icon {
+  font-size: 72rpx;
+}
+
+.ai-intro-title {
+  display: block;
+  margin-top: 18rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1f1f2c;
+}
+
+.ai-intro-sub {
+  display: block;
+  margin-top: 14rpx;
+  font-size: 24rpx;
+  color: #8a8aa3;
+  line-height: 1.7;
+}
+
+.ai-msg {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 26rpx;
+}
+
+.ai-msg-mine {
+  flex-direction: row-reverse;
+}
+
+.ai-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #eeebff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  flex: none;
+}
+
+.ai-bubble-wrap {
+  max-width: 78%;
+  margin: 0 16rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-msg-mine .ai-bubble-wrap {
+  align-items: flex-end;
+}
+
+.ai-text {
+  font-size: 27rpx;
+  line-height: 1.65;
+  color: #1f1f2c;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ai-time {
+  margin-top: 8rpx;
+  font-size: 19rpx;
+  color: #c8c8d8;
+}
+
+.ai-card {
+  margin-top: 16rpx;
+  padding: 16rpx;
+  border-radius: 12rpx;
+  background: #ffffff;
+  border: 1rpx solid #eeebff;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.ai-card-cover {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 10rpx;
+  flex: none;
+  margin-right: 16rpx;
+  background: #eeebff;
+}
+
+.ai-card-body {
+  min-width: 0;
+}
+
+.ai-card-type {
+  font-size: 20rpx;
+  color: #6c5ce7;
+  background: #f2f0ff;
+  padding: 4rpx 12rpx;
+  border-radius: 999rpx;
+}
+
+.ai-card-status {
+  font-size: 20rpx;
+  color: #ff7a59;
+}
+
+.ai-card-title {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1f1f2c;
+  line-height: 1.4;
+}
+
+.ai-card-sub {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: #8a8aa3;
+}
+
+.ai-card-price {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #ff7a59;
+}
+
+.ai-card-verify {
+  font-size: 21rpx;
+  color: #6c5ce7;
+}
+
+.ai-card-more {
+  font-size: 21rpx;
+  color: #a3a3b8;
+}
+
+.ai-actions {
+  margin-top: 14rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.ai-action {
+  font-size: 23rpx;
+}
+
+.ai-typing {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 26rpx;
+}
+
+.ai-typing-bubble {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10rpx;
+  padding: 22rpx 26rpx;
+}
+
+.dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #b8b8d8;
+  animation: ai-blink 1.2s infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes ai-blink {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.ai-bottom-space {
+  height: 30rpx;
+}
+
+.ai-suggest {
+  white-space: nowrap;
+  padding: 12rpx 24rpx;
+  background: #ffffff;
+  border-top: 1rpx solid #f2f2f8;
+}
+
+.ai-suggest .chip {
+  display: inline-block;
+  margin-right: 14rpx;
+  font-size: 23rpx;
+}
+
+.ai-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14rpx 24rpx;
+  background: #ffffff;
+  border-top: 1rpx solid #f2f2f8;
+}
+
+.ai-input {
+  flex: 1;
+  height: 72rpx;
+  border-radius: 36rpx;
+  background: #f5f5fa;
+  padding: 0 26rpx;
+  font-size: 26rpx;
+  color: #1f1f2c;
+}
+
+.ai-ph {
+  color: #b8b8c8;
+}
+
+.ai-send {
+  margin-left: 16rpx;
+  padding: 0 30rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  border-radius: 36rpx;
+  background: #6c5ce7;
+  color: #ffffff;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.ai-send-off {
+  background: #d8d8e4;
+}
+
+.ai-toolbar {
+  padding: 0 24rpx 10rpx;
+  text-align: right;
+  background: #f7f7fb;
+}
+
+.ai-toolbar-btn {
+  font-size: 22rpx;
+  color: #6c5ce7;
+}

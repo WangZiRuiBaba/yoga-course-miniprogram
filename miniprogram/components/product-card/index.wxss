@@ -1,0 +1,138 @@
+.pc {
+  display: flex;
+  flex-direction: row;
+  background: #ffffff;
+  border-radius: 16rpx;
+  box-shadow: 0 6rpx 24rpx rgba(108, 92, 231, 0.08);
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.pc-hover {
+  transform: scale(0.994);
+  box-shadow: 0 2rpx 12rpx rgba(108, 92, 231, 0.12);
+}
+
+.pc-cover {
+  width: 220rpx;
+  height: 220rpx;
+  flex: none;
+  background: #eeebff;
+}
+
+.pc-body {
+  flex: 1;
+  min-width: 0;
+  padding: 18rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.pc-title-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.pc-title {
+  flex: 1;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1f1f2c;
+  line-height: 1.4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.pc-badge {
+  flex: none;
+  margin-left: 10rpx;
+  padding: 2rpx 12rpx;
+  border-radius: 8rpx;
+  background: #fff0ec;
+  color: #ff7a59;
+  font-size: 20rpx;
+  line-height: 1.7;
+}
+
+.pc-sub {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #8a8aa3;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pc-tags {
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.pc-tag {
+  padding: 2rpx 12rpx;
+  border-radius: 999rpx;
+  background: #eeebff;
+  color: #6c5ce7;
+  font-size: 20rpx;
+  line-height: 1.7;
+}
+
+.pc-meta {
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.pc-meta-item {
+  font-size: 22rpx;
+  color: #a3a3b8;
+}
+
+.pc-foot {
+  margin-top: auto;
+  padding-top: 12rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.pc-price-row {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.pc-price-unit {
+  color: #ff7a59;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.pc-price {
+  color: #ff7a59;
+  font-size: 34rpx;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pc-origin {
+  margin-left: 10rpx;
+  color: #b8b8c8;
+  font-size: 22rpx;
+  text-decoration: line-through;
+}
+
+.pc-sales {
+  font-size: 22rpx;
+  color: #a3a3b8;
+}

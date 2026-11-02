@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "empty": "/components/empty/index",
+    "loading": "/components/loading/index"
+  },
+  "navigationBarTitleText": "课程详情"
+}

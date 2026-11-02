@@ -1,0 +1,247 @@
+<view class="page">
+  <loading wx:if="{{loading}}" skeleton="true" rows="4" text="正在加载分销数据…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="📈"
+    text="{{error}}"
+    tip="点下面重新加载"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:else>
+    <!-- 收益概览 -->
+    <view class="ds-hero">
+      <text class="ds-hero-label">可提现余额（元）</text>
+      <view class="row row-between">
+        <view class="row">
+          <text class="ds-hero-unit">¥</text>
+          <text class="ds-hero-amount">{{availableText}}</text>
+        </view>
+        <view
+          class="ds-hero-btn {{availableCents <= 0 ? 'ds-hero-btn-off' : ''}}"
+          bindtap="onWithdraw"
+        >提现</view>
+      </view>
+      <view class="ds-hero-meta row row-between">
+        <view class="ds-hero-cell">
+          <text class="ds-hero-cell-v">¥{{pendingText}}</text>
+          <text class="ds-hero-cell-k">冻结中</text>
+        </view>
+        <view class="ds-hero-cell">
+          <text class="ds-hero-cell-v">¥{{settledText}}</text>
+          <text class="ds-hero-cell-k">已结算</text>
+        </view>
+        <view class="ds-hero-cell">
+          <text class="ds-hero-cell-v">¥{{totalText}}</text>
+          <text class="ds-hero-cell-k">累计收益</text>
+        </view>
+      </view>
+      <text class="ds-hero-tip">最低提现 ¥{{minWithdrawText}}，到账后自动解冻</text>
+    </view>
+
+    <!-- 今日与团队 -->
+    <view class="card ds-stat">
+      <view class="ds-stat-cell">
+        <text class="ds-stat-v">¥{{todayCommissionText}}</text>
+        <text class="ds-stat-k">今日佣金</text>
+      </view>
+      <view class="ds-stat-cell">
+        <text class="ds-stat-v">{{todayOrders}}</text>
+        <text class="ds-stat-k">今日订单</text>
+      </view>
+      <view class="ds-stat-cell">
+        <text class="ds-stat-v">{{teamSize}}</text>
+        <text class="ds-stat-k">一级团队</text>
+      </view>
+      <view class="ds-stat-cell">
+        <text class="ds-stat-v">{{teamSizeL2}}</text>
+        <text class="ds-stat-k">二级团队</text>
+      </view>
+    </view>
+
+    <!-- 邀请 -->
+    <view class="card ds-invite" wx:if="{{isDistributor}}">
+      <view class="row row-between">
+        <text class="card-title">我的邀请码</text>
+        <text class="ds-level" wx:if="{{levelText}}">{{levelText}}</text>
+      </view>
+      <view class="row ds-code-row">
+        <text class="ds-code">{{inviteCode}}</text>
+        <text class="ds-copy" bindtap="copyInvite">复制</text>
+      </view>
+      <view class="ds-tips" wx:if="{{tips.length > 0}}">
+        <text class="ds-tip-item" wx:for="{{tips}}" wx:key="key">· {{item.text}}</text>
+      </view>
+      <text class="ds-invite-tip" wx:else>把邀请码或小程序分享给好友，好友下单后你可获得佣金，佣金冻结 7 天后可提现。</text>
+      <view class="row gap-16 mt-16">
+        <button class="btn btn-primary btn-sm flex-1 ds-share" open-type="share">分享给好友</button>
+        <view class="btn btn-ghost btn-sm flex-1" bindtap="goService">联系客服</view>
+      </view>
+    </view>
+
+    <!-- 未开通 -->
+    <view class="card ds-lock" wx:else>
+      <text class="ds-lock-title">你还不是分销员</text>
+      <text class="ds-lock-sub">开通后可生成专属邀请码，好友购课即得佣金，佣金冻结 7 天后可提现。</text>
+      <view
+        class="btn btn-primary btn-block mt-16 {{acting ? 'btn-disabled' : ''}}"
+        bindtap="onEnable"
+      >立即开通分销</view>
+    </view>
+
+    <!-- 绑定上级 -->
+    <view class="card ds-bind">
+      <text class="card-title">绑定邀请人</text>
+      <text class="sub mt-8">填写好友的邀请码，绑定后不可更改</text>
+      <view class="row ds-bind-row">
+        <input
+          class="input flex-1"
+          value="{{bindCode}}"
+          placeholder="请输入邀请码"
+          maxlength="32"
+          bindinput="onBindInput"
+        />
+        <view class="btn btn-accent btn-sm {{acting ? 'btn-disabled' : ''}}" bindtap="onBind">绑定</view>
+      </view>
+    </view>
+
+    <!-- 明细 tabs -->
+    <view class="chips ds-tabs">
+      <text
+        class="chip {{tab === t.key ? 'chip-active' : ''}}"
+        wx:for="{{tabs}}"
+        wx:for-item="t"
+        wx:key="key"
+        data-key="{{t.key}}"
+        bindtap="onTapTab"
+      >{{t.label}}</text>
+    </view>
+
+    <!-- 团队 -->
+    <block wx:if="{{tab === 'team'}}">
+      <view class="chips ds-sub" wx:if="{{isDistributor}}">
+        <text
+          class="chip {{teamLevel === lv.key ? 'chip-active' : ''}}"
+          wx:for="{{teamLevels}}"
+          wx:for-item="lv"
+          wx:key="key"
+          data-level="{{lv.key}}"
+          bindtap="onTapTeamLevel"
+        >{{lv.label}}</text>
+      </view>
+
+      <loading wx:if="{{teamLoading}}" text="加载团队成员…" />
+      <empty
+        wx:elif="{{team.length === 0}}"
+        icon="👥"
+        text="还没有团队成员"
+        tip="分享邀请码，好友注册即成为你的伙伴"
+        compact="true"
+      />
+      <block wx:else>
+      <view class="card ds-row" wx:for="{{team}}" wx:key="key">
+        <image class="ds-avatar" wx:if="{{item.avatar}}" src="{{item.avatar}}" mode="aspectFill" />
+        <view class="ds-avatar ds-avatar-ph" wx:else>{{item.initial}}</view>
+        <view class="col flex-1">
+          <text class="ds-row-title">{{item.nickname}}</text>
+          <text class="ds-row-sub">{{item.joinedText || '—'}}</text>
+        </view>
+        <view class="col ds-row-right">
+          <text class="tag tag-plain">{{item.levelText}}</text>
+          <text class="ds-row-extra" wx:if="{{item.ordersText}}">{{item.ordersText}}</text>
+          <text class="ds-row-extra" wx:if="{{item.contributionText}}">{{item.contributionText}}</text>
+        </view>
+      </view>
+      </block>
+    </block>
+
+    <!-- 佣金 -->
+    <block wx:elif="{{tab === 'commission'}}">
+      <scroll-view class="chips ds-sub" scroll-x="true" show-scrollbar="false">
+        <text
+          class="chip {{commissionStatus === cs.key ? 'chip-active' : ''}}"
+          wx:for="{{commissionStatuses}}"
+          wx:for-item="cs"
+          wx:key="key"
+          data-key="{{cs.key}}"
+          bindtap="onTapCommissionStatus"
+        >{{cs.label}}</text>
+      </scroll-view>
+
+      <loading wx:if="{{commissionLoading}}" text="加载佣金明细…" />
+      <empty
+        wx:elif="{{commissions.length === 0}}"
+        icon="💰"
+        text="暂无佣金记录"
+        tip="好友下单并完成支付后，佣金会出现在这里"
+        compact="true"
+      />
+      <block wx:else>
+      <view class="card ds-row" wx:for="{{commissions}}" wx:key="key">
+        <view class="col flex-1">
+          <text class="ds-row-title">{{item.levelText}}</text>
+          <text class="ds-row-sub">{{item.timeText || '—'}}</text>
+          <text class="ds-row-sub" wx:if="{{item.fromText}}">来自 {{item.fromText}}{{item.rateText ? ' · ' + item.rateText : ''}}</text>
+        </view>
+        <view class="col ds-row-right">
+          <text class="ds-row-amount">¥{{item.amountText}}</text>
+          <text class="tag tag-plain">{{item.statusText}}</text>
+        </view>
+      </view>
+      </block>
+    </block>
+
+    <!-- 提现 -->
+    <block wx:else>
+      <view class="ds-withdraw-bar" wx:if="{{isDistributor}}">
+        <view class="ds-withdraw-info">
+          <text class="sub">可提现 ¥{{availableText}}</text>
+          <text class="sub">最低 ¥{{minWithdrawText}}</text>
+        </view>
+        <view
+          class="btn btn-primary btn-sm {{availableCents <= 0 ? 'btn-disabled' : ''}}"
+          bindtap="onWithdraw"
+        >申请提现</view>
+      </view>
+
+      <loading wx:if="{{withdrawLoading}}" text="加载提现记录…" />
+      <empty
+        wx:elif="{{withdrawals.length === 0}}"
+        icon="🏦"
+        text="暂无提现记录"
+        tip="佣金解冻后即可申请提现"
+        compact="true"
+      />
+      <block wx:else>
+      <view class="card ds-row" wx:for="{{withdrawals}}" wx:key="key">
+        <view class="col flex-1">
+          <text class="ds-row-title">¥{{item.amountText}}</text>
+          <text class="ds-row-sub">{{item.timeText || '—'}}</text>
+          <text class="ds-row-sub" wx:if="{{item.note}}">{{item.note}}</text>
+        </view>
+        <view class="col ds-row-right">
+          <text class="tag tag-plain">{{item.statusText}}</text>
+          <text class="ds-row-extra" wx:if="{{item.withdrawNo}}">{{item.withdrawNo}}</text>
+        </view>
+      </view>
+      </block>
+    </block>
+
+    <!-- 最近佣金 -->
+    <view class="card" wx:if="{{recent.length > 0}}">
+      <text class="card-title">最近佣金</text>
+      <view class="ds-mini" wx:for="{{recent}}" wx:key="key">
+        <text class="ds-mini-k">{{item.levelText}} · {{item.statusText}}</text>
+        <text class="ds-mini-v">¥{{item.amountText}}</text>
+      </view>
+    </view>
+
+    <view class="ds-foot">
+      <text class="ds-foot-link" bindtap="goOrders">我的订单</text>
+      <text class="ds-foot-dot">·</text>
+      <text class="ds-foot-link" bindtap="goService">联系客服</text>
+    </view>
+  </block>
+</view>

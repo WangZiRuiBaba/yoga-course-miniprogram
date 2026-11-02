@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/list/list",
+    "pages/detail/detail",
+    "pages/confirm/confirm",
+    "pages/pay/pay",
+    "pages/orders/orders",
+    "pages/order-detail/order-detail",
+    "pages/refund/refund",
+    "pages/mine/mine",
+    "pages/ai/ai",
+    "pages/dist/dist",
+    "pages/service/service",
+    "pages/entitlements/entitlements",
+    "pages/ent-detail/ent-detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#F7F7FB",
+    "navigationBarBackgroundColor": "#6C5CE7",
+    "navigationBarTitleText": "瑜伽课堂",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#8A8AA3",
+    "selectedColor": "#6C5CE7",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/list/list", "text": "课程" },
+      { "pagePath": "pages/ai/ai", "text": "AI 商城" },
+      { "pagePath": "pages/mine/mine", "text": "我的" }
+    ]
+  },
+  "networkTimeout": {
+    "request": 20000,
+    "uploadFile": 20000
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "yoga-course-shop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "瑜伽卖课小程序：微信原生小程序 + H5 预览 + 零依赖 Node 后端（商品/订单/支付/退款/客服/二级分销/AI 商城）",
+  "main": "server/index.js",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node --no-warnings server/index.js",
+    "dev": "node --no-warnings --watch server/index.js",
+    "test": "node --no-warnings --test \"test/**/*.test.mjs\"",
+    "db:reset": "node --no-warnings scripts/db-reset.mjs",
+    "smoke": "node --no-warnings scripts/smoke.mjs",
+    "check": "node --no-warnings scripts/check-frontend.mjs"
+  },
+  "keywords": [
+    "wechat",
+    "miniprogram",
+    "yoga",
+    "distribution",
+    "ai-agent"
+  ],
+  "license": "MIT"
+}

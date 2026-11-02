@@ -1,0 +1,43 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 90rpx 40rpx;
+}
+
+.empty-compact {
+  padding: 40rpx 30rpx;
+}
+
+.empty-icon {
+  font-size: 72rpx;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+.empty-text {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #55556b;
+}
+
+.empty-tip {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: #a3a3b8;
+  text-align: center;
+}
+
+.empty-btn {
+  margin-top: 28rpx;
+  padding: 14rpx 40rpx;
+  border-radius: 999rpx;
+  background: #eeebff;
+  color: #6c5ce7;
+  font-size: 26rpx;
+}
+
+.empty-btn-hover {
+  background: #ddd8ff;
+}

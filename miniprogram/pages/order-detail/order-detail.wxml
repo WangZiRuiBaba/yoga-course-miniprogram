@@ -1,0 +1,137 @@
+<view class="page page-with-bar">
+  <loading wx:if="{{loading}}" skeleton="true" rows="3" text="正在加载订单…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="😵"
+    text="{{error}}"
+    tip="点下面重新加载"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:elif="{{order}}">
+    <!-- 状态头 -->
+    <view class="od-head od-head-{{order.status}}">
+      <text class="od-status">{{order.statusText}}</text>
+      <text class="od-tip" wx:if="{{order.status === 'pending'}}">
+        {{remainText ? '剩余支付时间 ' + remainText : '等待支付'}}
+      </text>
+      <text class="od-tip" wx:elif="{{order.status === 'paid'}}">已支付，等待上课</text>
+      <text class="od-tip" wx:elif="{{order.status === 'completed'}}">课程已完成，感谢练习</text>
+      <text class="od-tip" wx:elif="{{order.status === 'cancelled'}}">订单已取消</text>
+      <text class="od-tip" wx:else>退款处理中或已完成</text>
+      <view class="od-no" bindtap="copyOrderNo">订单号 {{order.orderNo}} · 点击复制</view>
+    </view>
+
+    <!-- 商品明细 -->
+    <view class="card">
+      <text class="card-title">课程明细</text>
+      <view
+        class="od-item"
+        wx:for="{{items}}"
+        wx:key="id"
+        data-pid="{{item.productId}}"
+        bindtap="onTapItem"
+      >
+        <image class="od-cover" src="{{item.cover}}" mode="aspectFill" lazy-load="true" />
+        <view class="od-info flex-1">
+          <text class="od-title ellipsis-2">{{item.title}}</text>
+          <text class="od-sku" wx:if="{{item.skuName}}">{{item.skuName}}</text>
+          <view class="row row-between mt-16">
+            <text class="od-price">¥{{item.priceText}}</text>
+            <text class="od-qty">×{{item.quantity}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="od-sum">
+        <view class="od-sum-row">
+          <text class="od-sum-label">订单金额</text>
+          <text class="od-sum-value">¥{{order.totalText}}</text>
+        </view>
+        <view class="od-sum-row" wx:if="{{order.paidText}}">
+          <text class="od-sum-label">实付金额</text>
+          <text class="od-sum-value">¥{{order.paidText}}</text>
+        </view>
+        <view class="od-sum-row" wx:if="{{order.refundedText}}">
+          <text class="od-sum-label">已退金额</text>
+          <text class="od-sum-value">¥{{order.refundedText}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 已开通权益 -->
+    <view class="card" wx:if="{{entitlements.length > 0}}">
+      <text class="card-title">已开通课程</text>
+      <view
+        class="od-ent"
+        wx:for="{{entitlements}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onTapEntitlement"
+      >
+        <view class="flex-1">
+          <text class="od-ent-title">{{item.title}}</text>
+          <text class="od-ent-tip">核销码 {{item.verifyCode}} · {{item.expiresAtText}}</text>
+        </view>
+        <text class="od-ent-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 支付信息 -->
+    <view class="card" wx:if="{{payment}}">
+      <text class="card-title">支付信息</text>
+      <view class="od-kv">
+        <text class="od-k">支付方式</text>
+        <text class="od-v">{{payment.provider === 'wxpay' ? '微信支付' : '模拟支付'}}</text>
+      </view>
+      <view class="od-kv" wx:if="{{payment.transactionId}}">
+        <text class="od-k">交易号</text>
+        <text class="od-v">{{payment.transactionId}}</text>
+      </view>
+      <view class="od-kv" wx:if="{{payment.outTradeNo}}">
+        <text class="od-k">商户单号</text>
+        <text class="od-v">{{payment.outTradeNo}}</text>
+      </view>
+      <view class="od-kv" wx:if="{{order.paidAtText}}">
+        <text class="od-k">支付时间</text>
+        <text class="od-v">{{order.paidAtText}}</text>
+      </view>
+      <view class="od-kv">
+        <text class="od-k">下单时间</text>
+        <text class="od-v">{{order.createdAtText}}</text>
+      </view>
+      <view class="od-kv" wx:if="{{order.remark}}">
+        <text class="od-k">备注</text>
+        <text class="od-v">{{order.remark}}</text>
+      </view>
+    </view>
+
+    <!-- 时间线 -->
+    <view class="card" wx:if="{{timeline.length > 0}}">
+      <text class="card-title">订单进度</text>
+      <view class="od-tl-item" wx:for="{{timeline}}" wx:key="key">
+        <view class="od-tl-dot"></view>
+        <view class="flex-1">
+          <text class="od-tl-label">{{item.label}}</text>
+          <text class="od-tl-time">{{item.timeText}}</text>
+          <text class="od-tl-note" wx:if="{{item.note}}">{{item.note}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="od-help">
+      <text bindtap="goService">遇到问题？联系客服</text>
+    </view>
+  </block>
+
+  <!-- 底部操作 -->
+  <view class="bottom-bar" wx:if="{{order && !loading}}">
+    <text class="btn btn-plain od-btn" bindtap="goService">客服</text>
+    <text class="btn btn-plain od-btn" wx:if="{{canCancel}}" bindtap="onCancel">取消订单</text>
+    <text class="btn btn-plain od-btn" wx:if="{{canRefund}}" bindtap="onRefund">申请退款</text>
+    <text class="btn btn-plain od-btn" wx:if="{{order.status === 'paid'}}" bindtap="onConfirm">确认完成</text>
+    <text class="btn btn-primary od-btn od-btn-main" wx:if="{{canPay}}" bindtap="onPay">去支付</text>
+  </view>
+</view>

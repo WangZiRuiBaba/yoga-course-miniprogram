@@ -1,0 +1,86 @@
+<view class="page">
+  <!-- 状态筛选 -->
+  <view class="tabs">
+    <view
+      class="tab {{status === item.key ? 'tab-active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="onTapTab"
+    >
+      <text class="tab-text">{{item.label}}</text>
+      <view class="tab-line" wx:if="{{status === item.key}}"></view>
+    </view>
+  </view>
+
+  <loading wx:if="{{loading}}" skeleton="true" rows="3" text="正在加载订单…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="😵"
+    text="{{error}}"
+    tip="网络抖了一下，点下面重试"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:else>
+    <view class="order-card" wx:for="{{list}}" wx:key="orderNo" data-no="{{item.orderNo}}" bindtap="onTapOrder">
+      <view class="row row-between">
+        <text class="order-no">{{item.orderNo}}</text>
+        <text class="order-status">{{item.statusText}}</text>
+      </view>
+      <text class="order-titles ellipsis-2">{{item.productTitles || '课程订单'}}</text>
+      <view class="row row-between mt-16">
+        <text class="order-time">{{item.createdAtText}}</text>
+        <view class="row" style="align-items: baseline;">
+          <text class="order-count">共 {{item.itemsCount}} 件</text>
+          <text class="order-total">¥{{item.totalText}}</text>
+        </view>
+      </view>
+      <view class="order-actions">
+        <text
+          class="btn btn-sm btn-ghost"
+          wx:if="{{item.canPay}}"
+          data-no="{{item.orderNo}}"
+          catchtap="onPay"
+        >去支付</text>
+        <text
+          class="btn btn-sm btn-plain"
+          wx:if="{{item.canCancel}}"
+          data-no="{{item.orderNo}}"
+          catchtap="onCancel"
+        >取消订单</text>
+        <text
+          class="btn btn-sm btn-plain"
+          wx:if="{{item.status === 'paid'}}"
+          data-no="{{item.orderNo}}"
+          catchtap="onConfirm"
+        >确认完成</text>
+        <text
+          class="btn btn-sm btn-plain"
+          wx:if="{{item.canRefund}}"
+          data-no="{{item.orderNo}}"
+          catchtap="onRefund"
+        >申请退款</text>
+        <text class="btn btn-sm btn-plain" data-no="{{item.orderNo}}" catchtap="onTapOrder">详情</text>
+      </view>
+    </view>
+
+    <empty
+      wx:if="{{list.length === 0}}"
+      icon="📦"
+      text="{{emptyText}}"
+      tip="去挑一门喜欢的课吧"
+      show-retry="true"
+      retry-text="去逛逛"
+      bind:retry="goShop"
+    />
+
+    <view class="load-more" wx:if="{{list.length > 0}}">
+      <text wx:if="{{loadingMore}}">加载中…</text>
+      <text wx:elif="{{hasMore}}">上拉加载更多</text>
+      <text wx:else>— 没有更多了 —</text>
+    </view>
+  </block>
+</view>

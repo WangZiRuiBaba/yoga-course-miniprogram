@@ -1,0 +1,161 @@
+.pay-head {
+  padding: 50rpx 24rpx 40rpx;
+  text-align: center;
+  background: linear-gradient(160deg, #7b6cf6 0%, #6c5ce7 100%);
+}
+
+.pay-head-ok {
+  background: linear-gradient(160deg, #43c59e 0%, #2fa87f 100%);
+}
+
+.pay-head-icon {
+  font-size: 60rpx;
+  display: block;
+}
+
+.pay-head-title {
+  display: block;
+  margin-top: 12rpx;
+  color: #ffffff;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.pay-head-sub {
+  display: block;
+  margin-top: 10rpx;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 23rpx;
+}
+
+.pay-amount {
+  margin-top: -20rpx;
+  text-align: center;
+}
+
+.pay-amount-label {
+  display: block;
+  font-size: 23rpx;
+  color: #8a8aa3;
+}
+
+.pay-amount-value {
+  font-size: 58rpx;
+  font-weight: 700;
+  color: #1f1f2c;
+}
+
+.pay-amount-tip {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 21rpx;
+  color: #b8b8c8;
+}
+
+.pay-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid #f5f5fa;
+}
+
+.pay-item-name {
+  font-size: 26rpx;
+  color: #1f1f2c;
+}
+
+.pay-item-price {
+  font-size: 26rpx;
+  color: #55556b;
+  margin-left: 16rpx;
+}
+
+.pay-item-qty {
+  font-size: 22rpx;
+  color: #a3a3b8;
+  margin-left: 12rpx;
+}
+
+.pay-meta {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12rpx 0;
+}
+
+.pay-meta-label {
+  font-size: 23rpx;
+  color: #8a8aa3;
+}
+
+.pay-meta-value {
+  font-size: 23rpx;
+  color: #55556b;
+  max-width: 440rpx;
+  text-align: right;
+  word-break: break-all;
+}
+
+.mock-panel {
+  background: #fff9f5;
+  border: 1rpx solid #ffe3d6;
+}
+
+.mock-tip {
+  display: block;
+  font-size: 25rpx;
+  color: #a8621f;
+  line-height: 1.6;
+}
+
+.mock-actions {
+  margin-top: 20rpx;
+}
+
+.mock-note {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 21rpx;
+  color: #b8b8c8;
+  word-break: break-all;
+}
+
+.pay-help {
+  margin: 30rpx 24rpx 40rpx;
+  text-align: center;
+}
+
+.pay-help-item {
+  font-size: 23rpx;
+  color: #6c5ce7;
+}
+
+.pay-help-sep {
+  margin: 0 12rpx;
+  color: #d8d8e4;
+}
+
+.pay-bar-amount {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.pay-bar-label {
+  font-size: 22rpx;
+  color: #8a8aa3;
+  margin-right: 8rpx;
+}
+
+.pay-bar-value {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #ff7a59;
+}
+
+.bar-pay {
+  width: 280rpx;
+  flex: none;
+}

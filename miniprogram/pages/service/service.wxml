@@ -1,0 +1,79 @@
+<view class="page sv-page">
+  <loading wx:if="{{loading}}" text="正在接入客服…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="💬"
+    text="{{error}}"
+    tip="客服小助手在等你，点下面重试"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:else>
+    <view class="sv-head">
+      <text class="sv-head-title">瑜伽馆客服</text>
+      <text class="sv-head-sub">{{closed ? '会话已结束' : '通常 1 分钟内回复 · 9:00-21:00'}}</text>
+      <text class="sv-close" bindtap="onCloseConversation" wx:if="{{!closed}}">结束会话</text>
+    </view>
+
+    <scroll-view
+      class="sv-scroll"
+      scroll-y="true"
+      scroll-into-view="{{scrollTo}}"
+      scroll-with-animation="true"
+    >
+      <view class="sv-welcome" wx:if="{{welcome}}">
+        <text>{{welcome}}</text>
+      </view>
+
+      <view
+        class="sv-msg {{item.mine ? 'sv-msg-mine' : ''}}"
+        wx:for="{{messages}}"
+        wx:key="key"
+        id="msg-{{index}}"
+      >
+        <view class="sv-avatar" wx:if="{{!item.mine}}">🎧</view>
+        <view class="sv-bubble-wrap">
+          <text class="sv-sender" wx:if="{{!item.mine}}">{{item.senderText}}</text>
+          <view class="bubble {{item.mine ? 'bubble-right' : 'bubble-left'}}">
+            <text class="sv-text">{{item.content}}</text>
+          </view>
+          <text class="sv-time" wx:if="{{item.timeText}}">{{item.timeText}}</text>
+        </view>
+      </view>
+
+      <view class="sv-space"></view>
+    </scroll-view>
+
+    <!-- 快捷话术 -->
+    <scroll-view class="sv-quick" scroll-x="true" show-scrollbar="false" wx:if="{{!closed}}">
+      <text
+        class="chip"
+        wx:for="{{quickReplies}}"
+        wx:key="key"
+        data-text="{{item.text}}"
+        data-content="{{item.content}}"
+        bindtap="onPickQuick"
+      >{{item.text}}</text>
+    </scroll-view>
+
+    <view class="sv-bar" wx:if="{{!closed}}">
+      <input
+        class="sv-input"
+        value="{{input}}"
+        placeholder="描述你的问题…"
+        placeholder-class="sv-ph"
+        confirm-type="send"
+        confirm-hold="true"
+        bindinput="onInput"
+        bindconfirm="onSend"
+      />
+      <view class="sv-send {{sending || !input ? 'sv-send-off' : ''}}" bindtap="onSend">发送</view>
+    </view>
+    <view class="sv-closed" wx:else>
+      <text class="sv-closed-text">会话已结束</text>
+      <text class="sv-closed-link" bindtap="onRetry">重新进入客服</text>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,27 @@
+<view class="pc" hover-class="pc-hover" hover-stay-time="80" bindtap="onTap" wx:if="{{card}}">
+  <image class="pc-cover" src="{{card.cover}}" mode="aspectFill" lazy-load="true"></image>
+  <view class="pc-body">
+    <view class="pc-title-row">
+      <text class="pc-title">{{card.title}}</text>
+      <text class="pc-badge" wx:if="{{card.discountText}}">{{card.discountText}}</text>
+    </view>
+    <text class="pc-sub">{{card.subtitle}}</text>
+    <view class="pc-tags" wx:if="{{card.goalTags.length > 0}}">
+      <text class="pc-tag" wx:for="{{card.goalTags}}" wx:key="*this">{{item}}</text>
+    </view>
+    <view class="pc-meta">
+      <text class="pc-meta-item" wx:if="{{showType}}">{{card.typeText}}</text>
+      <text class="pc-meta-item" wx:if="{{card.teacher}}">{{card.teacher}}</text>
+      <text class="pc-meta-item" wx:if="{{card.durationText}}">{{card.durationText}}</text>
+    </view>
+    <view class="pc-foot">
+      <view class="pc-price-row">
+        <text class="pc-price-unit">¥</text>
+        <text class="pc-price">{{card.priceText}}</text>
+        <text class="pc-origin" wx:if="{{card.originalPriceText}}">¥{{card.originalPriceText}}</text>
+      </view>
+      <text class="pc-sales" wx:if="{{card.soldOut}}">已售罄</text>
+      <text class="pc-sales" wx:elif="{{card.sales}}">已售 {{card.sales}}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,180 @@
+.mine-head {
+  padding: 34rpx 24rpx 30rpx;
+  background: linear-gradient(160deg, #7b6cf6 0%, #6c5ce7 100%);
+  border-bottom-left-radius: 28rpx;
+  border-bottom-right-radius: 28rpx;
+}
+
+.mine-user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mine-avatar {
+  width: 116rpx;
+  height: 116rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  flex: none;
+}
+
+.mine-avatar-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 44rpx;
+  font-weight: 700;
+}
+
+.mine-user-info {
+  margin-left: 22rpx;
+}
+
+.mine-name {
+  display: block;
+  color: #ffffff;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.mine-role {
+  display: block;
+  margin-top: 8rpx;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 22rpx;
+}
+
+.mine-badge {
+  padding: 6rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-size: 21rpx;
+}
+
+.mine-stats {
+  margin-top: 28rpx;
+  display: flex;
+  flex-direction: row;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 14rpx;
+  padding: 18rpx 0;
+}
+
+.mine-stat {
+  flex: 1;
+  text-align: center;
+}
+
+.mine-stat-num {
+  display: block;
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.mine-stat-label {
+  display: block;
+  margin-top: 6rpx;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 21rpx;
+}
+
+.invite-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: -18rpx;
+}
+
+.invite-title {
+  font-size: 23rpx;
+  color: #8a8aa3;
+}
+
+.invite-code {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #6c5ce7;
+  letter-spacing: 4rpx;
+}
+
+.invite-tip {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 21rpx;
+  color: #a3a3b8;
+}
+
+.grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.grid-item {
+  width: 33.33%;
+  padding: 22rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.grid-icon {
+  font-size: 44rpx;
+}
+
+.grid-label {
+  margin-top: 10rpx;
+  font-size: 23rpx;
+  color: #55556b;
+}
+
+.grid-dot {
+  position: absolute;
+  top: 18rpx;
+  right: 42rpx;
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: #ff7a59;
+}
+
+.cell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 26rpx 0;
+  border-bottom: 1rpx solid #f5f5fa;
+}
+
+.cell-label {
+  font-size: 27rpx;
+  color: #1f1f2c;
+  flex: none;
+}
+
+.cell-value {
+  flex: 1;
+  text-align: right;
+  font-size: 23rpx;
+  color: #a3a3b8;
+  margin: 0 12rpx;
+}
+
+.cell-arrow {
+  font-size: 30rpx;
+  color: #d8d8e4;
+}
+
+.mine-foot {
+  margin: 40rpx 0 40rpx;
+  text-align: center;
+  font-size: 21rpx;
+  color: #c8c8d8;
+}

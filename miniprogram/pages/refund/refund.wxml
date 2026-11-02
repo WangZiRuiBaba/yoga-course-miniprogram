@@ -1,0 +1,131 @@
+<view class="page page-with-bar">
+  <loading wx:if="{{loading}}" skeleton="true" rows="2" text="正在加载退款信息…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="😵"
+    text="{{error}}"
+    tip="点下面重新加载"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:elif="{{order}}">
+    <!-- 结果提示 -->
+    <view class="rf-result" wx:if="{{result}}">
+      <text class="rf-result-icon">{{result.nextAction === 'none' ? '✅' : '🕓'}}</text>
+      <text class="rf-result-title">{{result.statusText}}</text>
+      <text class="rf-result-amount">退款金额 ¥{{result.amountText}}</text>
+      <text class="rf-result-msg">{{result.message || result.reason}}</text>
+      <view class="row gap-16 mt-16">
+        <text class="btn btn-plain rf-result-btn" bindtap="goOrder">查看订单</text>
+        <text class="btn btn-ghost rf-result-btn" bindtap="goService">联系客服</text>
+      </view>
+    </view>
+
+    <block wx:else>
+      <!-- 可退金额 -->
+      <view class="card rf-head">
+        <text class="rf-head-label">本单可退金额</text>
+        <view class="row" style="align-items: baseline; justify-content: center;">
+          <text class="price-unit">¥</text>
+          <text class="rf-head-value">{{refundableText}}</text>
+        </view>
+        <text class="rf-head-tip">退款原路返回，通常 1-3 个工作日到账</text>
+      </view>
+
+      <!-- 订单摘要 -->
+      <view class="card">
+        <text class="card-title">退款订单</text>
+        <view class="rf-kv">
+          <text class="rf-k">订单号</text>
+          <text class="rf-v">{{order.orderNo}}</text>
+        </view>
+        <view class="rf-kv">
+          <text class="rf-k">课程</text>
+          <text class="rf-v">{{order.productTitles || '—'}}</text>
+        </view>
+        <view class="rf-kv">
+          <text class="rf-k">实付金额</text>
+          <text class="rf-v">¥{{order.paidText || order.totalText}}</text>
+        </view>
+        <view class="rf-kv" wx:if="{{order.refundedText}}">
+          <text class="rf-k">已退金额</text>
+          <text class="rf-v">¥{{order.refundedText}}</text>
+        </view>
+      </view>
+
+      <!-- 退款金额 -->
+      <view class="card">
+        <view class="row row-between">
+          <text class="card-title">退款金额</text>
+          <view class="rf-switch {{partial ? 'rf-switch-on' : ''}}" bindtap="onTogglePartial">
+            <view class="rf-switch-dot"></view>
+          </view>
+        </view>
+        <view class="row row-between mt-16">
+          <text class="rf-amount-label">{{partial ? '部分退款金额（元）' : '全额退款'}}</text>
+          <input
+            wx:if="{{partial}}"
+            class="rf-input"
+            type="digit"
+            value="{{amountYuan}}"
+            placeholder="0.00"
+            placeholder-class="rf-ph"
+            bindinput="onAmountInput"
+          />
+          <text wx:else class="rf-amount-full">¥{{refundableText}}</text>
+        </view>
+        <text class="rf-note">开启右侧开关可只退部分金额，剩余金额继续用于上课</text>
+      </view>
+
+      <!-- 退款原因 -->
+      <view class="card">
+        <text class="card-title">退款原因</text>
+        <view class="rf-reasons">
+          <text
+            class="chip {{reasonType === item.key ? 'chip-active' : ''}}"
+            wx:for="{{reasons}}"
+            wx:key="key"
+            data-key="{{item.key}}"
+            bindtap="onPickReason"
+          >{{item.label}}</text>
+        </view>
+        <textarea
+          class="rf-textarea"
+          value="{{reason}}"
+          placeholder="补充说明（选填），有助于更快处理"
+          placeholder-class="rf-ph"
+          maxlength="200"
+          auto-height="true"
+          bindinput="onReasonInput"
+        />
+      </view>
+
+      <!-- 历史退款 -->
+      <view class="card" wx:if="{{refunds.length > 0}}">
+        <text class="card-title">该订单的退款记录</text>
+        <view class="rf-record" wx:for="{{refunds}}" wx:key="refundNo">
+          <view class="row row-between">
+            <text class="rf-record-no">{{item.refundNo}}</text>
+            <text class="rf-record-status">{{item.statusText}}</text>
+          </view>
+          <view class="row row-between mt-8">
+            <text class="rf-record-time">{{item.createdAtText}}</text>
+            <text class="rf-record-amount">¥{{item.amountText}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </block>
+
+  <view class="bottom-bar" wx:if="{{order && !result && !loading}}">
+    <view class="rf-bar">
+      <text class="rf-bar-label">退款金额</text>
+      <text class="rf-bar-value">¥{{partial ? (amountYuan || '0.00') : refundableText}}</text>
+    </view>
+    <view class="btn btn-accent rf-submit {{submitting ? 'btn-disabled' : ''}}" bindtap="onSubmit">
+      {{submitting ? '提交中…' : '提交退款申请'}}
+    </view>
+  </view>
+</view>

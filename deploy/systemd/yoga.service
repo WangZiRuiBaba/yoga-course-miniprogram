@@ -1,0 +1,33 @@
+[Unit]
+Description=Yoga course shop (node, zero-dependency)
+Documentation=file:///opt/yoga/docs/API.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=yoga
+Group=yoga
+WorkingDirectory=/opt/yoga
+Environment=NODE_ENV=production
+Environment=PORT=3100
+Environment=HOST=127.0.0.1
+# 其余配置放 /opt/yoga/.env（由 .env.production.example 复制而来，权限 600）
+ExecStart=/usr/bin/node --no-warnings server/index.js
+Restart=always
+RestartSec=3
+# 优雅退出留给 SIGTERM（server/index.js 已处理 SIGTERM）
+KillSignal=SIGTERM
+TimeoutStopSec=15
+
+# 基本功：禁止提权、限制可写目录
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/yoga/data /opt/yoga/logs
+StandardOutput=append:/opt/yoga/logs/app.log
+StandardError=append:/opt/yoga/logs/app.err.log
+
+[Install]
+WantedBy=multi-user.target

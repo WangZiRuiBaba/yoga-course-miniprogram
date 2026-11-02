@@ -1,0 +1,105 @@
+<view class="page">
+  <!-- 用户卡片 -->
+  <view class="mine-head">
+    <view class="mine-user">
+      <image class="mine-avatar" wx:if="{{avatar}}" src="{{avatar}}" mode="aspectFill" />
+      <view class="mine-avatar mine-avatar-text" wx:else>{{initial}}</view>
+      <view class="flex-1 mine-user-info">
+        <text class="mine-name">{{nickname || '未登录'}}</text>
+        <text class="mine-role" wx:if="{{user}}">{{roleText}} · {{user.phone || '未绑定手机号'}}</text>
+        <text class="mine-role" wx:else>点击下方按钮登录体验</text>
+      </view>
+      <view class="mine-badge" wx:if="{{isDistributor}}">分销员</view>
+    </view>
+
+    <view class="mine-stats">
+      <view class="mine-stat" bindtap="goOrders">
+        <text class="mine-stat-num">{{orderCount}}</text>
+        <text class="mine-stat-label">订单</text>
+      </view>
+      <view class="mine-stat" bindtap="goEntitlements">
+        <text class="mine-stat-num">{{entCount}}</text>
+        <text class="mine-stat-label">课程</text>
+      </view>
+      <view class="mine-stat" bindtap="goDist">
+        <text class="mine-stat-num">{{isDistributor ? '已开通' : '未开通'}}</text>
+        <text class="mine-stat-label">分销</text>
+      </view>
+    </view>
+  </view>
+
+  <loading wx:if="{{loading}}" text="正在读取账号…" />
+
+  <empty
+    wx:elif="{{error}}"
+    icon="😵"
+    text="{{error}}"
+    tip="检查后端是否启动，或改一下服务地址"
+    show-retry="true"
+    bind:retry="onRetry"
+  />
+
+  <block wx:else>
+    <!-- 邀请码 -->
+    <view class="card invite-card" wx:if="{{inviteCode}}">
+      <view class="flex-1">
+        <text class="invite-title">我的邀请码</text>
+        <text class="invite-code">{{inviteCode}}</text>
+        <text class="invite-tip">朋友下单后你可获得佣金，绑定关系永久有效</text>
+      </view>
+      <text class="btn btn-sm btn-primary" bindtap="copyInvite">复制</text>
+    </view>
+
+    <!-- 功能入口 -->
+    <view class="card">
+      <view class="grid">
+        <view class="grid-item" bindtap="goOrders">
+          <text class="grid-icon">📦</text>
+          <text class="grid-label">我的订单</text>
+        </view>
+        <view class="grid-item" bindtap="goEntitlements">
+          <text class="grid-icon">🧘</text>
+          <text class="grid-label">我的课程</text>
+        </view>
+        <view class="grid-item" bindtap="goDist">
+          <text class="grid-icon">💰</text>
+          <text class="grid-label">分销中心</text>
+        </view>
+        <view class="grid-item" bindtap="goService">
+          <text class="grid-icon">💬</text>
+          <text class="grid-label">在线客服</text>
+          <view class="grid-dot" wx:if="{{hasOpenConversation}}"></view>
+        </view>
+        <view class="grid-item" bindtap="goAi">
+          <text class="grid-icon">🤖</text>
+          <text class="grid-label">AI 顾问</text>
+        </view>
+        <view class="grid-item" bindtap="goShop">
+          <text class="grid-icon">🛍️</text>
+          <text class="grid-label">去逛逛</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 设置 -->
+    <view class="card">
+      <text class="card-title">设置</text>
+      <view class="cell" bindtap="onSwitchAccount">
+        <text class="cell-label">切换演示账号</text>
+        <text class="cell-value">{{openid}}</text>
+        <text class="cell-arrow">›</text>
+      </view>
+      <view class="cell" bindtap="onEditBaseUrl">
+        <text class="cell-label">服务地址</text>
+        <text class="cell-value ellipsis">{{baseUrlText}}</text>
+        <text class="cell-arrow">›</text>
+      </view>
+      <view class="cell" bindtap="onLogout">
+        <text class="cell-label">退出登录</text>
+        <text class="cell-arrow">›</text>
+      </view>
+    </view>
+
+    <view class="mine-foot">瑜伽卖课小程序 · 演示环境 v1.0</view>
+  </block>
+</view>
